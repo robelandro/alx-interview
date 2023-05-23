@@ -8,7 +8,7 @@ def island_perimeter(grid):
     """
     Description: returns the perimeter of the island described in grid
     :param grid: list of list of integers
-    :return: perimeter of the island
+    :return: perimeter of the islands
     """
     result = 0
     for top in range(len(grid) - 1):
