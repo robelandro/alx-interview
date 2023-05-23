@@ -11,17 +11,17 @@ def island_perimeter(grid):
     :return: perimeter of the island
     """
     result = 0
-    for top in range(len(grid)):
-        for bottom in range(len(grid[top])):
-            if (grid[top][bottom] == 1):
+    for top in range(len(grid) - 1):
+        for botm in range(len(grid[top]) - 1):
+            if (grid[top][botm] == 1):
                 val = 4
-                if (grid[top - 1][bottom] == 1):
+                if (top > 0 and grid[top - 1][botm] == 1):
                     val -= 1
-                if (grid[top][bottom + 1] == 1):
+                if (botm < len(grid[top]) - 1 and grid[top][botm + 1] == 1):
                     val -= 1
-                if (grid[top][bottom - 1] == 1):
+                if (botm > 0 and grid[top][botm - 1] == 1):
                     val -= 1
-                if (grid[top + 1][bottom] == 1):
+                if (top < len(grid) - 1 and grid[top + 1][botm] == 1):
                     val -= 1
                 result += val
     return result
