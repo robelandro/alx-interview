@@ -6,7 +6,10 @@ import sys
 import signal
 
 
-def slicer(line: str):
+def slicer(line):
+    """
+    Slice the line
+    """
     lines = line.split()
     result = {'Status': None, 'Size': None}
     result['Size'] = lines[-1]
@@ -15,7 +18,10 @@ def slicer(line: str):
     return result
 
 
-def countStore(sliced: dict, result: dict):
+def countStore(sliced, result):
+    """
+    Count and store the statistics
+    """
     status = sliced['Status']
     if status.isdigit():
         result.setdefault(status, 0)
@@ -23,7 +29,10 @@ def countStore(sliced: dict, result: dict):
     result['File size'] += int(sliced['Size'])
 
 
-def printStat(result: dict):
+def printStat(result):
+    """
+    Print the statistics
+    """
     for key, value in result.items():
         if key.isdigit() or key == 'File size':
             print(f"{key}: {value}")
