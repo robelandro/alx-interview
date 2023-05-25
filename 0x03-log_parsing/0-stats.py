@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-Log Parsing
+Module Log Parsing
 """
 import sys
 import signal
@@ -39,6 +39,9 @@ def printStat(result):
 
 
 def handler(signal_received, frame):
+    """
+    Handle the signal
+    """
     printStat(Result)
     sys.exit(0)
 
