@@ -1,14 +1,18 @@
 #!/usr/bin/python3
 """
-Module Log Parsing
+0-stats module
 """
 import sys
-import signal
 
 
 def slicer(line):
     """
-    Slice the line
+    Slice the line into status and size information.
+
+    :param line: Line to slice
+    :type line: str
+    :return: Dictionary with the sliced line
+    :rtype: dict
     """
     lines = line.split()
     result = {'Status': None, 'Size': None}
@@ -20,7 +24,13 @@ def slicer(line):
 
 def countStore(sliced, result):
     """
-    Count and store the statistics
+    Count and store the statistics based on the sliced line.
+
+    :param sliced: Sliced line containing status and size information
+    :type sliced: dict
+    :param result: Dictionary with the statistics
+    :type result: dict
+    :return: None
     """
     status = sliced['Status']
     if status.isdigit():
@@ -31,33 +41,27 @@ def countStore(sliced, result):
 
 def printStat(result):
     """
-    Print the statistics
+    Print the statistics.
+
+    :param result: Dictionary with the statistics
+    :type result: dict
+    :return: None
     """
     for key, value in result.items():
         if key.isdigit() or key == 'File size':
             print(f"{key}: {value}")
 
 
-def handler(signal_received, frame):
-    """
-    Handle the signal
-    """
-    printStat(Result)
-    sys.exit(0)
-
-
 if __name__ == '__main__':
     Counter = 0
     Result = {'File size': 0}
-    signal.signal(signal.SIGINT, handler)
     try:
         for line in sys.stdin:
             countStore(slicer(line), Result)
             if Counter == 10:
                 printStat(Result)
                 Counter = 0
-            else:
-                print(f'Line: {line}', end='')
             Counter += 1
     except KeyboardInterrupt:
-        handler(None, None)
+        printStat(Result)
+        raise
